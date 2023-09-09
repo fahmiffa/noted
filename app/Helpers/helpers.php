@@ -84,10 +84,29 @@ function gambar($val)
     return $imageData;
 }
 
-function nomor($nextNumber)
+function nomor($nextNumber,$par)
 {
-    $nom = explode('/',$nextNumber);
-    echo $num = (int) $nom[0] + 1;    
+    $nextNumber = ($par) ? $par->nomor : 0;
+    if($par)
+    {
+        $last = date('Y',strtotime($par->created_at));
+        $reset = ($last == date('Y')) ? true : false; 
+        if($reset)
+        {
+            $nom = explode('/',$nextNumber);
+            $num = (int) $nom[1] + 1;    
+        }   
+        else
+        {
+            $num =1;
+        }
+        
+    }
+    else
+    {
+        $num = 1;
+    }
+    
     return str_pad($num, 4, '0', STR_PAD_LEFT);
 }
 

@@ -34,9 +34,8 @@ class FormulirController extends Controller
      */
     public function create()
     {
-        $last = Formulir::latest()->first(); 
-        $num = ($last) ? $last->nomor : 0;
-        $nomor = '600.1.15/'.nomor($num);
+        $last = Formulir::latest()->first();         
+        $nomor = '600.1.15/'.nomor($last);
         $da = Form::findOrFail(1);  
         $dis = District::all();
         $data ='Tambah Data Formulir';     
@@ -51,8 +50,7 @@ class FormulirController extends Controller
      */
     public function store(Request $request)
     {        
-        $rule = [
-            'nama' => 'required',
+        $rule = [            
             'tanggal' => 'required',
             'noreg' => 'required',                 
             'pengajuan' => 'required',                    
@@ -65,8 +63,7 @@ class FormulirController extends Controller
             'village'=>'required',
             ];
 
-        $message = [
-            'nama.required'=>'Field harus diisi',
+        $message = [            
             'tanggal.required'=>'Field harus diisi',
             'noreg.required'=>'Field harus diisi',        
             'pengajuan.required'=>'Field harus diisi',       
@@ -92,9 +89,8 @@ class FormulirController extends Controller
     
         $request->validate($rule,$message);
 
-            $last = Formulir::latest()->first();     
-            $num = ($last) ? $last->nomor : 0;           
-            $nomor = '600.1.15/'.nomor($num).'/SPm-SIMBG/'.numberToRoman(date('m')).'/'.date('Y');
+            $last = Formulir::latest()->first();                 
+            $nomor = '600.1.15/'.nomor($last).'/SPm-SIMBG/'.numberToRoman(date('m')).'/'.date('Y');
             $da = [
                 'no'=> $nomor,
                 'header'=>[$request->noreg, $request->pengajuan, $request->namaPemohon, $request->hp, $request->alamatPemohon, $request->namaBangunan, $request->fungsi, $request->alamatBangunan],                
@@ -112,8 +108,7 @@ class FormulirController extends Controller
             $form->nomor = $nomor;
             $form->users_id = Auth::user()->id;
             $form->forms_id = 1;
-
-            $form->name = $request->nama;
+            
             $form->tanggal = $request->tanggal;            
             $form->noreg = $request->noreg;            
             $form->tipe = $request->tipe;            
@@ -182,8 +177,7 @@ class FormulirController extends Controller
      */
     public function update(Request $request, Formulir $formulir)
     {
-        $rule = [
-            'nama' => 'required',
+        $rule = [            
             'tanggal' => 'required',
             'noreg' => 'required',                 
             'pengajuan' => 'required',                    
@@ -196,8 +190,7 @@ class FormulirController extends Controller
             'village'=>'required'
             ];
 
-        $message = [
-            'nama.required'=>'Field harus diisi',
+        $message = [            
             'tanggal.required'=>'Field harus diisi',
             'noreg.required'=>'Field harus diisi',        
             'pengajuan.required'=>'Field harus diisi',       
@@ -239,8 +232,7 @@ class FormulirController extends Controller
             // dd($da);
             $form = $formulir;                          
             $form->forms_id = 1;
-
-            $form->name = $request->nama;
+            
             $form->tanggal = $request->tanggal;            
             $form->noreg = $request->noreg;            
             $form->tipe = $request->tipe;            
