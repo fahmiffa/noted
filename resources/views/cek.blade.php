@@ -12,31 +12,59 @@
     <div class="row py-3">
         <div class="card card-body py-3">
             <p class="text-left h5">Informasi Dokumen</p>            
-            <div class="row">            
-                <div class="col-3">Nama Pemohon</div>
-                <div class="col-8">: {{($header) ? $header[2] : null}}</div>
-                <div class="col-3">Alamat Pemohon</div>
-                <div class="col-8">: {{($row->desa) ? $row->desa->nama : null}}, {{($row->desa) ? $row->desa->kecamatan->nama : null}}, {{($header) ? $header[4] : null}}</div>
-                <div class="col-3">No. Registrasi</div>
-                <div class="col-8">: {{$row->noreg}}</div>
-                <div class="col-3">No. Dokumen</div>
-                <div class="col-8">: No. {{$row->nomor}}</div>
-                <div class="col-3">Nama Bangunan</div>
-                <div class="col-8">: {{($header) ? $header[5] : null}}</div>
-                <div class="col-3">Lokasi Bangunan</div>
-                <div class="col-8">: {{($header) ? $header[7] : null}}</div>
-                <div class="col-3">Catatan/Status</div>
-                <div class="col-8">: {{$row->status}}</div>
-                @if($row->dokumen && $row->tipe == 'doc')
-                <div class="col-3">Dokumen</div>
-                <div class="col-8">: <a href="{{ asset('assets/doc/'.$row->dokumen) }}" class="btn btn-danger btn-sm" target="_blank">Lihat Dokumen</a></div>
-                @elseif($row->tipe == 'field')
-                <div class="col-3">Dokumen</div>
-                <div class="col-8">: <a href="{{ route('dok', ['formulir'=>$row->id]) }}" target="_blank" class="btn btn-sm btn-dark">Lihat Dokumen</a></div>
-                @endif
-                <div class="col-3">Verifikator</div>
-                <div class="col-8">: {{$row->users->name}}</div>   
-            </div>            
+            <table class="table table-bordered table-sm" style="width:100%">
+                <tr>
+                    <td>Pemohon</td>
+                    <td>:</td>
+                    <td>{{($header) ? $header[2] : null}}</td>
+                  </tr>
+                <tr>
+                    <td>Alamat</td>
+                    <td>:</td>
+                    <td>{{($header) ? $header[4] : null}}</td>
+                  </tr>
+                <tr>
+                    <td>No. Registrasi</td>
+                    <td>:</td>
+                    <td>{{$row->noreg}}</td>
+                  </tr>
+                <tr>
+                    <td>No. Dokumen</td>
+                    <td>:</td>
+                    <td>{{$row->nomor}}</td>
+                  </tr>
+                <tr>
+                    <td>Bangunan</td>
+                    <td>:</td>
+                    <td>{{($header) ? $header[5] : null}}</td>
+                  </tr>
+                <tr>
+                    <td>Lokasi</td>
+                    <td>:</td>
+                    <td>{{($header) ? $header[7] : null}}, Desa {{($row->desa) ? $row->desa->nama : null}}, Kecamatan {{($row->desa && $row->desa->kecamatan) ? $row->desa->kecamatan->nama : null}}, Kabupaten Tegal</td>
+                  </tr>
+                <tr>
+                    <td>Catatan/Status</td>
+                    <td>:</td>
+                    <td>{{$row->status}}</td>
+                  </tr>
+                <tr>
+                    <td>Dokumen</td>
+                    <td>:</td>
+                    <td>
+                       @if($row->dokumen && $row->tipe == 'doc')
+                       <a href="{{ asset('assets/doc/'.$row->dokumen) }}" class="btn btn-secondary btn-sm" target="_blank">Lihat Dokumen</a>
+                       @else
+                       <a href="{{ route('dok', ['formulir'=>$row->id]) }}" target="_blank" class="btn btn-sm btn-dark">Lihat Dokumen</a>
+                       @endif
+                    </td>
+                  </tr>
+                <tr>
+                    <td>Verifikator</td>
+                    <td>:</td>
+                    <td>{{$row->users->name}}</td>
+                </tr>
+          </table>        
         </div>
     </div>
 </div>
