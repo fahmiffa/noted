@@ -37,8 +37,8 @@ Route::group(['middleware' => 'auth'], function() {
 Route::group(['middleware' => ['auth','user']], function() {    
     Route::group(['prefix'=>'user'],function(){
         Route::get('/', [App\Http\Controllers\User::class, 'index'])->name('user');                
-        Route::get('/edit/{id}', [App\Http\Controllers\user::class, 'edit'])->name('userEdit');
-        Route::post('/update/{id}', [App\Http\Controllers\user::class, 'update'])->name('userUpdate');        
+        Route::get('/edit/{id}', [App\Http\Controllers\User::class, 'edit'])->name('userEdit');
+        Route::post('/update/{id}', [App\Http\Controllers\User::class, 'update'])->name('userUpdate');        
     });
 });
 
